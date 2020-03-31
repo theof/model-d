@@ -1,12 +1,14 @@
+'use strict';
+
 if(!navigator.requestMIDIAccess){
     alert('This app needs Google Chrome (WebMIDI) to work!')
 }
 
 var ma;
 var out;
-var device_id = 0x00; // all devices
-
-const restore_factory_settings = [0xf0, 0x00, 0x20, 0x32, 0x00, 0x01, 0x0c, device_id, 0x7d, 0xf7];
+var store = {
+  "device_id": 0x00 // all devices,
+}
 
 function initMA(f){
     navigator.requestMIDIAccess({sysex: true}).then(
@@ -38,4 +40,30 @@ function sliderChangedFn(fn,eid){
         document.getElementById(eid).innerHTML=e.value;
         fn(parseInt(e.value))
     }
+}
+
+function feedback(name) {
+  store[name] = document.getElementById(name).value;
+  document.getElementById(name + "_fb").innerHTML = store[name];
+}
+
+function change(name) {
+  feedback(name);
+  console.log("new " + name + " selected: " + store[name]);
+}
+
+function restoreFactorySettings() {
+  const restore_factory_settings = [
+    0xf0,
+    0x00,
+    0x20,
+    0x32,
+    0x00,
+    0x01,
+    0x0c,
+    store["device_id"],
+    0x7d,
+    0xf7
+  ];
+  send(restore_factory_settings);
 }

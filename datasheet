@@ -20,7 +20,7 @@ COMMAND TABLE
 
 Packet Number             SysEx Packet             Functions         Note                                                                                       Default
 =======================================================================================================================================================================
-00                        F0 00 20 32 00 01 0c DID 00 nn F7       Set device id (DID) n= DID to be set, range from [0-127], 0 ==any [0]
+00                        F0 00 20 32 00 01 0c DID 00 nn F7       Set device id (DID) n= DID to be set, range from [0-127], 0 ==any                             [0]
 
 0E                        F0 00 20 32 00 01 0c DID 0E 01 nn mm F7 Set midi channel nn = Midi TX channel number to be set, range from [0-16], 0 == Any channel.
                                                                   mm = Midi RX channel number to be set, range from [0-16], 0 == Any channel.
