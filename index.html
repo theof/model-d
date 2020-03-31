@@ -1,13 +1,14 @@
 <html>
-<head><title>Model D settings</title></head>
-<script src="model_d.js"></script>
-<h3>Behringer Model D settings</h3>
+<head><title>Poly D settings</title></head>
+<script src="poly_d.js"></script>
+<h3>Behringer Poly D settings</h3>
 <div>
         Multitrigger<sup>1</sup>
         <button onclick="send(multitrigger_on_old)">old mode</button>
         <button onclick="send(multitrigger_on_new)">new mode</button>
         <button onclick="send(multitrigger_off)">off</button>
 </div>
+<!--
 <div>
         Pitchbend mode<sup>2</sup>
         <button onclick="pitchbend_type(1)">settable</button>
@@ -35,19 +36,17 @@
         <button onclick="modulationCurve(1)">medium</button>
         <button onclick="modulationCurve(2)">hard</button>
 </div>
+-->
+<div>
+        Factory Defaults
+				<button onclick="send(restore_factory_settings)">Restore Factory Settings</button>
+</div>
 <div>
         <button onclick="initMA()">Request MIDI Access</button>
 </div>
 <p>
-        1) Multitrigger "new" mode is available from v1.0.6.
-        <br>
-        2) Pitchbend range <a href='https://forum.musictri.be/showthread.php?21620-Firmware-1-05-Pitch-Bend-range-bug&p=143246&viewfull=1#post143246'>is disabled</a> in firmware v1.0.5</a>.
-        In v1.0.6 it can be set when using Pitchbend model "settable".
-        <br>
-        See <a href='http://downloads.music-group.com/software/ReleaseNotes/Model_D%20firmware%20update%20v1.0.6.pdf'>1.0.6 release notes</a> for more info.
-</p>
-<p>
-        <a href='http://github.com/grav/model-d'>github</a>
+Many thanks to @grav for his previous work on 
+<a href='http://github.com/grav/model-d'>Model D</a> which helped to start this codebase
 </p>
 
 </html>
