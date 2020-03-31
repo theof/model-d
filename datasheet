@@ -1,0 +1,83 @@
+SETTING VALUES VIA SYSEX
+Use the following data format to set global value using a SysEx message.
+F0 00 20 32 00 01 0c aa bb cc D0 … Dn F7
+
+00 20 32 = Manufacture SYSEX ID number (Behringer GmbH)
+
+00 01 0c = Model ID for POLY D
+
+aa = Device ID: 00-0x7F (must match hardware device ID), or 0x00 to address all devices.
+
+bb = Packet Number
+
+cc = Sub packet number (maybe absent for some message).
+
+D0..Dn = Packet payload
+
+
+
+COMMAND TABLE
+
+Packet Number             SysEx Packet             Functions         Note                                                                                       Default
+=======================================================================================================================================================================
+00                        F0 00 20 32 00 01 0c DID 00 nn F7       Set device id (DID) n= DID to be set, range from [0-127], 0 ==any [0]
+
+0E                        F0 00 20 32 00 01 0c DID 0E 01 nn mm F7 Set midi channel nn = Midi TX channel number to be set, range from [0-16], 0 == Any channel.
+                                                                  mm = Midi RX channel number to be set, range from [0-16], 0 == Any channel.
+                                                                  Default value [1].                                                                            [1]
+
+0F                        F0 00 20 32 00 01 0c DID 0F nn F7       Set MIDI IN Transpose nn = transpose value [0-24]. Transpose range is -12 to + 12,
+                                                                  so 12 is no transpose. Default value [1].                                                     [1]
+
+10                        F0 00 20 32 00 01 0c DID 10 nn mm pp F7 Set velocity info nn = Key velocity of note on, 1 – 127 is a fi xed value of velocity;
+                                                                  0 is dynamic velocity.
+                                                                  mm = Key velocity of note off , 1 – 127 is a fi xed value of velocity;
+                                                                  0 is dynamic velocity.
+                                                                  pp = velocity Curve: 0 - soft, 1 - med, 2 - hard
+                                                                                                                                                                nn = [0],
+                                                                                                                                                                mm = [0],
+                                                                                                                                                                pp = [0]
+
+11                        F0 00 20 32 00 01 0c DID 11 nn mm F7    Set pitch bend range nn = Pitch bend range [0-24] , 0 – 2 octave.
+                                                                  Ignore mm
+                                                                                                                                                                [12 -- 1 octave]
+
+12                        F0 00 20 32 00 01 0c DID 12 nn F7       Set key priority [0-low, 1- high, 2-last]                                                           [2-last]
+
+14                        F0 00 20 32 00 01 0c DID 14 nn mm F7    Set multi trigger nn = multi-trigger [0-off , 1-on].
+                                                                  Ignore mm
+                                                                                                                                                                Nn = [nn=1, on]
+
+15                        F0 00 20 32 00 01 0c DID 15 nn F7       Set modulation curve. nn = curve [0-soft, 1-Med, 2-hard]                                      [0- soft]
+
+16                        F0 00 20 32 00 01 0c DID 16 nn F7       Set the Note @zero CV [0-127]                                                                 [0x24-C2]
+
+17                        F0 00 20 32 00 01 0c DID 17 nn F7       Set the MIDI clock output nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                  [3-BOTH]
+
+19                        F0 00 20 32 00 01 0c DID 19 nn F7       Set external clock polarity. nn = [0—FALLING, 1—RISSING],                                     [1—RISING]
+
+1A                        F0 00 20 32 00 01 0c DID 1A nn F7       Set sync clock rate nn = [0 – 1 PPS, 1 – 2 PPQ, 2 – 24 PPQ, 3- 48 PPQ]                        [2-24 PPQ]
+
+1B                        F0 00 20 32 00 01 0c DID 1B nn F7       Set sync clock source. nn = [0 – Internal, 1 – DIN, 2 – USB, 3 – TRIG]                        [0 – Internal]
+
+20                        F0 00 20 32 00 01 0c DID 20 nn F7       Modulation wheel range nn = [0-4]                                                             [2—100%]
+
+21                        F0 00 20 32 00 01 0c DID 21 nn F7       Set midi output of modulation wheel
+                                                                  nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                            [3-BOTH]
+
+22                        F0 00 20 32 00 01 0c DID 22 nn F7       Set midi output of pitch wheel
+                                                                  nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                            [3-BOTH]
+
+23                        F0 00 20 32 00 01 0c DID 23 nn F7       Set midi output of keyboard
+                                                                  nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                            [3-BOTH]
+
+24                        F0 00 20 32 00 01 0c DID 24 nn F7       Set midi output of keyboard after touch
+                                                                  nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                            [3-BOTH]
+
+25                        F0 00 20 32 00 01 0c DID 25 nn F7       Set midi output of sequencer
+                                                                  nn = [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                            [3-BOTH]
+
+26                        F0 00 20 32 00 01 0c DID 26 nn F7       Set midi output of arpeggiator
+                                                                  nn= [0—OFF, 1—DIN, 2—USB, 3-BOTH]                                                             [3-BOTH]
+
+7D                        F0 00 20 32 00 01 0c DID 7D F7          Restore factory settings
