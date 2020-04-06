@@ -11,22 +11,35 @@
 <div>
         Set Device ID: <b><span id="set_device_id_fb">0</span></b>
         <input id="set_device_id" type="range" min="0" max="127" value="0" oninput="feedback('set_device_id')" onchange="change('set_device_id')"/>
-        <button onclick="setDeviceId()">Apply</button>
+        <button onclick="apply('set_device_id')">Apply</button>
 </div>
 
 
+<div>
+        Set sync clock rate:
+        <select id="sync_clock_rate" onchange="change('sync_clock_rate')">
+            <option value="0">1 PPS</option>
+            <option value="1">2 PPQ</option>
+            <option value="2">24 PPQ</option>
+            <option value="3">48 PPQ</option>
+        </select>
+        <button onclick="apply('sync_clock_rate')">Apply</button>
+</div>
 
+<div>
+        Set sync clock source:
+        <select id="sync_clock_source" onchange="change('sync_clock_source')">
+            <option value="0">Internal</option>
+            <option value="1">DIN</option>
+            <option value="2">USB</option>
+            <option value="3">TRIG</option>
+        </select>
+        <button onclick="apply('sync_clock_source')">Apply</button>
+</div>
 
 <!--
 <p>
 </p>
-        <select name="unused">
-            <option value="1">1</option>
-            <option value="2">1</option>
-            <option value="5">1</option>
-            <option value="">1</option>
-            <option value="">1</option>
-        </select>
 <div>
         Multitrigger<sup>1</sup>
         <button onclick="send(multitrigger_on_old)">old mode</button>

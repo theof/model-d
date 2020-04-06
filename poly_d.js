@@ -7,7 +7,9 @@ if(!navigator.requestMIDIAccess){
 var ma;
 var out;
 var store = {
-  "device_id": 0x00 // all devices,
+  "device_id": 0x00, // all devices,
+	"sync_clock_rate": 0x00, // 1 PPS,
+  "sync_clock_source": 0x00, // Internal
 }
 
 function initMA(f){
@@ -44,7 +46,9 @@ function sliderChangedFn(fn,eid){
 
 function feedback(name) {
   store[name] = document.getElementById(name).value;
-  document.getElementById(name + "_fb").innerHTML = store[name];
+	var el = document.getElementById(name + "_fb");
+	if (el)
+		el.innerHTML = store[name];
 }
 
 function change(name) {
@@ -66,4 +70,40 @@ function restoreFactorySettings() {
     0xf7
   ];
   send(restore_factory_settings);
+}
+
+function apply(param) {
+	switch (param) {
+		case "sync_clock_rate":
+			var payload = [
+				0xf0,
+				0x00,
+				0x20,
+				0x32,
+				0x00,
+				0x01,
+				0x0c,
+				store["device"],
+				0x1a,
+				parseInt(store["sync_clock_rate"]),
+			  0xf7
+			];
+			break;
+		case "sync_clock_source":
+			var payload = [
+				0xf0,
+				0x00,
+				0x20,
+				0x32,
+				0x00,
+				0x01,
+				0x0c,
+				store["device"],
+				0x1b,
+				parseInt(store["sync_clock_source"]),
+			  0xf7
+			];
+			break;
+	}
+  send(payload);
 }
