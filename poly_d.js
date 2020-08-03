@@ -10,6 +10,7 @@ var store = {
   "device_id": 0x00, // all devices,
 	"sync_clock_rate": 0x00, // 1 PPS,
   "sync_clock_source": 0x00, // Internal
+	"pitch_bend_range": 12, // semitones
 }
 
 function initMA(f){
@@ -102,6 +103,22 @@ function apply(param) {
 				0x1b,
 				parseInt(store["sync_clock_source"]),
 			  0xf7
+			];
+			break;
+		case "pitch_bend_range":
+			var payload = [
+				0xf0,
+				0x00,
+				0x20,
+				0x32,
+				0x00,
+				0x01,
+				0x0c,
+				store["device_id"],
+				0x11,
+				store["pitch_bend_range"],
+				0x00,
+				0xf7
 			];
 			break;
 	}
