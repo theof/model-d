@@ -7,7 +7,8 @@ if(!navigator.requestMIDIAccess){
 var ma;
 var out;
 var store = {
-  "device_id": 0x00 // all devices,
+  "device_id": 0x00, // all devices
+	"pitch_bend_range": 12,
 }
 
 function initMA(f){
@@ -50,6 +51,24 @@ function feedback(name) {
 function change(name) {
   feedback(name);
   console.log("new " + name + " selected: " + store[name]);
+}
+
+function setPitchBendRange() {
+	const set_pitch_bend_range = [
+		0xf0,
+		0x00,
+		0x20,
+		0x32,
+		0x00,
+		0x01,
+    0x0c,
+		store["device_id"],
+		0x11,
+		store["pitch_bend_range"],
+		0x00,
+		0xf7
+	];
+	send(set_pitch_bend_range);
 }
 
 function restoreFactorySettings() {
